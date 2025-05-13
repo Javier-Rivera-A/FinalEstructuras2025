@@ -4,14 +4,16 @@ import co.edu.uniquindio.monederoVirtual.dto.AccountDTO;
 import co.edu.uniquindio.monederoVirtual.mapper.AccountMapper;
 import co.edu.uniquindio.monederoVirtual.model.Account;
 import co.edu.uniquindio.monederoVirtual.model.Customer;
+
 import co.edu.uniquindio.monederoVirtual.repository.AccountRepository;
+import co.edu.uniquindio.monederoVirtual.services.AccountService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 @Service
-public class AccountServiceImp {
+public class AccountServiceImp implements AccountService {
     private final AccountRepository accountRepository;
     private final AccountMapper accountMapper = AccountMapper.INSTANCE;
 
