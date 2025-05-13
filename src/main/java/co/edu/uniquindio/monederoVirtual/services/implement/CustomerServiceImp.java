@@ -5,11 +5,12 @@ import co.edu.uniquindio.monederoVirtual.mapper.CustomerMapper;
 import co.edu.uniquindio.monederoVirtual.model.Customer;
 import co.edu.uniquindio.monederoVirtual.model.Rank;
 import co.edu.uniquindio.monederoVirtual.repository.CustomerRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
+@Service
 public class CustomerServiceImp {
     private final CustomerRepository customerRepository;
     private final CustomerMapper customerMapper = CustomerMapper.INSTANCE;
