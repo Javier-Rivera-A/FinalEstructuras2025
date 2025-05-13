@@ -1,2 +1,4 @@
-package co.edu.uniquindio.monederoVirtual.bussinesLogic;public class CategoryServiceTest {
+package co.edu.uniquindio.monederoVirtual.bussinesLogic;
+
+public class CategoryServiceTest {
 }
