@@ -5,13 +5,14 @@ import co.edu.uniquindio.monederoVirtual.mapper.CustomerMapper;
 import co.edu.uniquindio.monederoVirtual.model.Customer;
 import co.edu.uniquindio.monederoVirtual.model.Rank;
 import co.edu.uniquindio.monederoVirtual.repository.CustomerRepository;
+import co.edu.uniquindio.monederoVirtual.services.CustomerService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 @Service
-public class CustomerServiceImp {
+public class CustomerServiceImp implements CustomerService {
     private final CustomerRepository customerRepository;
     private final CustomerMapper customerMapper = CustomerMapper.INSTANCE;
 
@@ -24,7 +25,7 @@ public class CustomerServiceImp {
      * @param customerDTO Datos del cliente a crear
      * @return DTO del cliente creado
      */
-    public CustomerDTO createCustomer(CustomerDTO customerDTO) {
+    public void createCustomer(CustomerDTO customerDTO) {
         // Validaciones básicas
         if (customerDTO == null) {
             throw new IllegalArgumentException("El cliente no puede ser nulo");
@@ -45,9 +46,7 @@ public class CustomerServiceImp {
 
         // Guardar en el repositorio
         Customer savedCustomer = customerRepository.save(customer);
-
-        // Convertir de vuelta a DTO y retornar
-        return customerMapper.customerToDto(savedCustomer);
+        
     }
 
     /**
