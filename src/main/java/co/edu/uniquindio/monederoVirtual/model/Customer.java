@@ -1,114 +1,103 @@
 package co.edu.uniquindio.monederoVirtual.model;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import io.swagger.v3.oas.annotations.media.Schema;
+
+import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Modelo que representa la información de un cliente del sistema
+ */
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Schema(description = "Información del cliente del sistema")
 public class Customer {
-    private String name,id,email,phone;
+
+    @Schema(description = "Nombre completo del cliente", example = "Juan Pérez")
+    private String name;
+
+    @Schema(description = "Identificador único del cliente", example = "C12345")
+    private String id;
+
+    @Schema(description = "Correo electrónico del cliente", example = "juan.perez@example.com")
+    private String email;
+
+    @Schema(description = "Número de teléfono del cliente", example = "+34123456789")
+    private String phone;
+
+    @Schema(description = "Rango actual del cliente")
     private Rank rank;
+
+    @Schema(description = "Puntos acumulados del cliente", example = "1500")
     private int totalPoints;
-    private List<Wallet> wallets;
-    private List<Account> accounts;
-    private List<Transaction> transactions;
 
-    public String getName() {
-        return name;
+    @Schema(description = "Lista de wallets asociados al cliente")
+    private List<Wallet> wallets = new ArrayList<>();
+
+    @Schema(description = "Lista de cuentas bancarias asociadas al cliente")
+    private List<Account> accounts = new ArrayList<>();
+
+    @Schema(description = "Lista de transacciones realizadas por el cliente")
+    private List<Transaction> transactions = new ArrayList<>();
+
+    /**
+     * Actualiza el rango del cliente basado en sus puntos actuales
+     */
+    public void updateRank() {
+        this.rank = Rank.getRankByPoints(totalPoints);
     }
 
-    public void setName(String name) {
-        this.name = name;
+    /**
+     * Añade puntos al total del cliente y actualiza su rango
+     * @param points Los puntos a añadir
+     */
+    public void addPoints(int points) {
+        this.totalPoints += points;
+        updateRank();
     }
 
-    public String getId() {
-        return id;
+    /**
+     * Añade una billetera a la lista de billeteras del cliente
+     * @param wallet La billetera a añadir
+     */
+    public void addWallet(Wallet wallet) {
+        if (wallets == null) {
+            wallets = new ArrayList<>();
+        }
+        wallets.add(wallet);
     }
 
-    public void setId(String id) {
-        this.id = id;
+    /**
+     * Añade una cuenta a la lista de cuentas del cliente
+     * @param account La cuenta a añadir
+     */
+    public void addAccount(Account account) {
+        if (accounts == null) {
+            accounts = new ArrayList<>();
+        }
+        accounts.add(account);
     }
 
-    public String getEmail() {
-        return email;
+    /**
+     * Añade una transacción al historial del cliente
+     * @param transaction La transacción a añadir
+     */
+    public void addTransaction(Transaction transaction) {
+        if (transactions == null) {
+            transactions = new ArrayList<>();
+        }
+        transactions.add(transaction);
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public Rank getRank() {
-        return rank;
-    }
-
-    public void setRank(Rank rank) {
-        this.rank = rank;
-    }
-
-    public int getTotalPoints() {
-        return totalPoints;
-    }
-
-    public void setTotalPoints(int totalPoints) {
-        this.totalPoints = totalPoints;
-    }
-
-    public List<Wallet> getWallets() {
-        return wallets;
-    }
-
-    public void setWallets(List<Wallet> wallets) {
-        this.wallets = wallets;
-    }
-
-    public List<Account> getAccounts() {
-        return accounts;
-    }
-
-    public void setAccounts(List<Account> accounts) {
-        this.accounts = accounts;
-    }
-
-    public List<Transaction> getTransactions() {
-        return transactions;
-    }
-
-    public void setTransactions(List<Transaction> transactions) {
-        this.transactions = transactions;
-    }
-
-    public Customer(String name, String id, String email, String phone, Rank rank, int totalPoints, List<Wallet> wallets, List<Account> accounts, List<Transaction> transactions) {
-        this.name = name;
-        this.id = id;
-        this.email = email;
-        this.phone = phone;
-        this.rank = rank;
-        this.totalPoints = totalPoints;
-        this.wallets = wallets;
-        this.accounts = accounts;
-        this.transactions = transactions;
-    }
-
-    public Customer() {
-    }
-
-    @Override
-    public String toString() {
-        return "Customer{" +
-                "name='" + name + '\'' +
-                ", id='" + id + '\'' +
-                ", email='" + email + '\'' +
-                ", phone='" + phone + '\'' +
-                ", rank=" + rank +
-                ", totalPoints=" + totalPoints +
-                ", wallets=" + wallets +
-                ", accounts=" + accounts +
-                ", transactions=" + transactions +
-                '}';
+    /**
+     * Calcula los puntos necesarios para llegar al siguiente rango
+     * @return Puntos necesarios para el siguiente rango
+     */
+    public int pointsToNextRank() {
+        return rank.pointsToNextRank(totalPoints);
     }
 }

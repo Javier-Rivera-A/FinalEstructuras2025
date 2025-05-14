@@ -2,83 +2,35 @@ package co.edu.uniquindio.monederoVirtual.model;
 
 import java.util.List;
 
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import io.swagger.v3.oas.annotations.media.Schema;
+
+import java.util.List;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Schema(description = "Información de una cuenta financiera del cliente")
 public class Account {
+
+    @Schema(description = "ID único de la cuenta", example = "ACC123456")
     private String accountID;
+
+    @Schema(description = "Saldo actual de la cuenta", example = "2500.75")
     private double balance;
+
+    @Schema(description = "Tipo de cuenta: SAVINGS o CHECKING", example = "SAVINGS")
     private AccountType accountType;
+
+    @Schema(description = "Cliente dueño de esta cuenta")
     private Customer owner;
+
+    @Schema(description = "Lista de transacciones asociadas a la cuenta")
     private List<Transaction> transactions;
+
+    @Schema(description = "Sub-billeteras asociadas a esta cuenta")
     private List<Wallet> subWallets;
-
-    public Account(String accountID, double balance, AccountType accountType, Customer owner, List<Transaction> transactions, List<Wallet> subWallets) {
-        this.accountID = accountID;
-        this.balance = balance;
-        this.accountType = accountType;
-        this.owner = owner;
-        this.transactions = transactions;
-        this.subWallets = subWallets;
-    }
-
-    public Account() {
-    }
-
-    public String getAccountID() {
-        return accountID;
-    }
-
-    public void setAccountID(String accountID) {
-        this.accountID = accountID;
-    }
-
-    public double getBalance() {
-        return balance;
-    }
-
-    public void setBalance(double balance) {
-        this.balance = balance;
-    }
-
-    public AccountType getAccountType() {
-        return accountType;
-    }
-
-    public void setAccountType(AccountType accountType) {
-        this.accountType = accountType;
-    }
-
-    public Customer getOwner() {
-        return owner;
-    }
-
-    public void setOwner(Customer owner) {
-        this.owner = owner;
-    }
-
-    public List<Transaction> getTransactions() {
-        return transactions;
-    }
-
-    public void setTransactions(List<Transaction> transactions) {
-        this.transactions = transactions;
-    }
-
-    public List<Wallet> getSubWallets() {
-        return subWallets;
-    }
-
-    public void setSubWallets(List<Wallet> subWallets) {
-        this.subWallets = subWallets;
-    }
-
-    @Override
-    public String toString() {
-        return "Account{" +
-                "accountID='" + accountID + '\'' +
-                ", balance=" + balance +
-                ", accountType=" + accountType +
-                ", owner=" + owner +
-                ", transactions=" + transactions +
-                ", subWallets=" + subWallets +
-                '}';
-    }
 }

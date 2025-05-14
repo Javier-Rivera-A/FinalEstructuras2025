@@ -1,13 +1,32 @@
 package co.edu.uniquindio.monederoVirtual.model;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Getter;
+
+/**
+ * Enum que define los rangos de clientes según su acumulación de puntos
+ */
+@Schema(description = "Rangos de clientes según su acumulación de puntos")
 public enum Rank {
+    @Schema(description = "Rango Bronce: 0-500 puntos")
     BRONZE(0, 500, "Bronce"),
+
+    @Schema(description = "Rango Plata: 501-1000 puntos")
     SILVER(501, 1000, "Plata"),
+
+    @Schema(description = "Rango Oro: 1001-5000 puntos")
     GOLD(1001, 5000, "Oro"),
+
+    @Schema(description = "Rango Platino: más de 5000 puntos")
     PLATINUM(5001, Integer.MAX_VALUE, "Platino");
 
+    @Getter
     private final int minPoints;
+
+    @Getter
     private final int maxPoints;
+
+    @Getter
     private final String displayName;
 
     Rank(int minPoints, int maxPoints, String displayName) {
@@ -41,30 +60,6 @@ public enum Rank {
             return Rank.values()[ordinal + 1];
         }
         return this; // Si ya está en el rango máximo, devuelve el mismo
-    }
-
-    /**
-     * Obtiene los puntos mínimos necesarios para este rango
-     * @return Puntos mínimos para el rango
-     */
-    public int getMinPoints() {
-        return minPoints;
-    }
-
-    /**
-     * Obtiene los puntos máximos de este rango
-     * @return Puntos máximos para el rango
-     */
-    public int getMaxPoints() {
-        return maxPoints;
-    }
-
-    /**
-     * Obtiene el nombre para mostrar de este rango
-     * @return Nombre del rango
-     */
-    public String getDisplayName() {
-        return displayName;
     }
 
     /**
