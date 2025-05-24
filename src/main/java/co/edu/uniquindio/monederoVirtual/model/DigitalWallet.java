@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -27,8 +28,7 @@ public class DigitalWallet {
     private List<Transaction> transactions = new ArrayList<>();
 
     @Schema(description = "Lista de notificaciones generadas por el sistema")
-    private List<Notification> notifications = new ArrayList<>();
-
+    private LinkedList<Notification> notifications;
     @Schema(description = "Lista de cuentas registradas en el sistema")
     private List<Account> accounts = new ArrayList<>();
 
@@ -63,7 +63,7 @@ public class DigitalWallet {
      */
     public void addNotification(Notification notification) {
         if (notifications == null) {
-            notifications = new ArrayList<>();
+            notifications = new LinkedList<>();
         }
         notifications.add(notification);
     }

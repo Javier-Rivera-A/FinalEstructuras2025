@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Schema(description = "Clase abstracta base para representar una transacción financiera")
-public abstract class Transaction {
+public class Transaction {
 
     @Schema(description = "ID único de la transacción", example = "TX12345")
     private String id;
@@ -42,7 +42,6 @@ public abstract class Transaction {
     @Schema(description = "Tipo de transacción")
     private TransactionType type;
 
-    // Método abstracto que debe ser implementado por las subclases
-    public abstract void execute();
+
 
 }

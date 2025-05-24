@@ -5,8 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import io.swagger.v3.oas.annotations.media.Schema;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Modelo que representa la información de un cliente del sistema
@@ -32,8 +31,6 @@ public class Customer {
     @Schema(description = "Rango actual del cliente")
     private Rank rank;
 
-    @Schema(description = "Puntos acumulados del cliente", example = "1500")
-    private int totalPoints;
 
     @Schema(description = "Lista de wallets asociados al cliente")
     private List<Wallet> wallets = new ArrayList<>();
@@ -44,6 +41,9 @@ public class Customer {
     @Schema(description = "Lista de transacciones realizadas por el cliente")
     private List<Transaction> transactions = new ArrayList<>();
 
+    private Stack<Transaction> reversibleTransfer;
+    private Map<Wallet, List<Wallet>> transferGraph;
+    private int totalPoints;
     /**
      * Actualiza el rango del cliente basado en sus puntos actuales
      */

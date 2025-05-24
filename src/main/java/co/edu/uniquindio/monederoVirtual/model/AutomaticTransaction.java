@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.time.LocalDateTime;
+import java.util.PriorityQueue;
 
 /**
  * Modelo que representa una transacción automática programada
@@ -39,6 +40,8 @@ public class AutomaticTransaction {
 
     @Schema(description = "Cliente que programó la transacción automática")
     private Customer owner;
+
+    PriorityQueue<AutomaticTransaction> scheduledTransactions;
 
     @Schema(description = "Descripción de la transacción automática", example = "Pago mensual de servicios")
     private String description;

@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Modelo que representa un sistema de puntos que registra, asigna y permite el canje de puntos por transacción
@@ -35,7 +36,7 @@ public class PointsSystem {
 
     @Schema(description = "Indica si los puntos ya fueron canjeados", example = "false")
     private boolean redeemed;
-
+    TreeMap<LocalDateTime, PointsSystem> pointsHistory;
     @Schema(description = "Configuración de puntos por tipo de transacción")
     private Map<TransactionType, Integer> pointsConfig = new HashMap<>();
 

@@ -1,6 +1,7 @@
 package co.edu.uniquindio.monederoVirtual.services.implement;
 
 import co.edu.uniquindio.monederoVirtual.dto.CustomerDTO;
+import co.edu.uniquindio.monederoVirtual.dto.customers.CreateCustomerDTO;
 import co.edu.uniquindio.monederoVirtual.mapper.CustomerMapper;
 import co.edu.uniquindio.monederoVirtual.model.Customer;
 import co.edu.uniquindio.monederoVirtual.model.Rank;
@@ -25,29 +26,6 @@ public class CustomerServiceImp implements CustomerService {
      * @param customerDTO Datos del cliente a crear
      * @return DTO del cliente creado
      */
-    public void createCustomer(CustomerDTO customerDTO) {
-        // Validaciones básicas
-        if (customerDTO == null) {
-            throw new IllegalArgumentException("El cliente no puede ser nulo");
-        }
-
-        if (customerDTO.id() == null || customerDTO.id().trim().isEmpty()) {
-            throw new IllegalArgumentException("El ID del cliente no puede estar vacío");
-        }
-
-        if (customerRepository.findById(customerDTO.id()).isPresent()) {
-            throw new IllegalArgumentException("Ya existe un cliente con el ID: " + customerDTO.id());
-        }
-
-        // Convertir DTO a entidad y establecer valores iniciales
-        Customer customer = customerMapper.dtoToCustomer(customerDTO);
-        customer.setRank(Rank.BRONZE); // Por defecto, un cliente nuevo es Bronce
-        customer.setTotalPoints(0);     // Inicia con 0 puntos
-
-        // Guardar en el repositorio
-        Customer savedCustomer = customerRepository.save(customer);
-        
-    }
 
     /**
      * Obtiene un cliente por su ID
@@ -158,5 +136,30 @@ public class CustomerServiceImp implements CustomerService {
         return customers.stream()
                 .map(customerMapper::customerToDto)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public void createCustomer(CreateCustomerDTO customerDTO) {
+        // Validaciones básicas
+        if (customerDTO == null) {
+            throw new IllegalArgumentException("El cliente no puede ser nulo");
+        }
+
+        if (customerDTO.id() == null || customerDTO.id().trim().isEmpty()) {
+            throw new IllegalArgumentException("El ID del cliente no puede estar vacío");
+        }
+
+        if (customerRepository.findById(customerDTO.id()).isPresent()) {
+            throw new IllegalArgumentException("Ya existe un cliente con el ID: " + customerDTO.id());
+        }
+
+        // Convertir DTO a entidad y establecer valores iniciales
+        Customer customer = customerMapper.createDtoToCustomer(customerDTO);
+        customer.setRank(Rank.BRONZE); // Por defecto, un cliente nuevo es Bronce
+        customer.setTotalPoints(0);     // Inicia con 0 puntos
+
+        // Guardar en el repositorio
+        Customer savedCustomer = customerRepository.save(customer);
+
     }
 }

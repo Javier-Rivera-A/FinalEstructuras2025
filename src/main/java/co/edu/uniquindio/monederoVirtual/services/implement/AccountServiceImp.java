@@ -17,7 +17,7 @@ public class AccountServiceImp implements AccountService {
     private final AccountRepository accountRepository;
     private final AccountMapper accountMapper = AccountMapper.INSTANCE;
 
-    public AccountServiceImp(AccountRepository accountRepository) {
+    public AccountServiceImp(AccountRepository repository) {
         this.accountRepository = new AccountRepository("src/main/resources/Persistence/accounts.txt");
     }
 
