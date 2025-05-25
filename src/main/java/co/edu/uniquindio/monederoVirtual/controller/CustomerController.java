@@ -34,7 +34,7 @@ public class CustomerController {
         customerService.updateCustomer(updateCustomerDTO);
         return ResponseEntity.ok(new MessageDto<>(false,"El cliente ha sido actualizado"));
     }
-    @GetMapping
+    @GetMapping("/get")
     public ResponseEntity<MessageDto<String>> getCustomer(@Valid @RequestBody DeleteCustomerDTO dto){
         customerService.findById(dto);
         return ResponseEntity.ok(new MessageDto<>(false,"Cliente encontrado"));
@@ -44,7 +44,7 @@ public class CustomerController {
         customerService.deleteCustomer(deleteCustomerDTO);
         return ResponseEntity.ok(new MessageDto<>(false,"Cliente eliminado"));
     }
-    @GetMapping
+    @GetMapping("/serchCustomers")
     public ResponseEntity<MessageDto<String>> searchCustomers(@Valid @RequestBody UpdateCustomerDTO updateCustomerDTO){
         customerService.searchCustomers(String.valueOf(updateCustomerDTO));
         return ResponseEntity.ok(new MessageDto<>(false,"Cliente encontrado"));

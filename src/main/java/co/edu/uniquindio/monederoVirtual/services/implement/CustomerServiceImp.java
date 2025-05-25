@@ -9,19 +9,19 @@ import co.edu.uniquindio.monederoVirtual.model.Customer;
 import co.edu.uniquindio.monederoVirtual.model.Rank;
 import co.edu.uniquindio.monederoVirtual.repository.CustomerRepository;
 import co.edu.uniquindio.monederoVirtual.services.CustomerService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 @Service
+@RequiredArgsConstructor
 public class CustomerServiceImp implements CustomerService {
     private final CustomerRepository customerRepository;
     private final CustomerMapper customerMapper = CustomerMapper.INSTANCE;
 
-    public CustomerServiceImp() {
-        this.customerRepository = new CustomerRepository("src/main/resources/Persistence/customers.txt");
-    }
+
 
 
 
