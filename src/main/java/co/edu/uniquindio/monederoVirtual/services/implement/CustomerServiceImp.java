@@ -2,6 +2,8 @@ package co.edu.uniquindio.monederoVirtual.services.implement;
 
 import co.edu.uniquindio.monederoVirtual.dto.CustomerDTO;
 import co.edu.uniquindio.monederoVirtual.dto.customers.CreateCustomerDTO;
+import co.edu.uniquindio.monederoVirtual.dto.customers.DeleteCustomerDTO;
+import co.edu.uniquindio.monederoVirtual.dto.customers.UpdateCustomerDTO;
 import co.edu.uniquindio.monederoVirtual.mapper.CustomerMapper;
 import co.edu.uniquindio.monederoVirtual.model.Customer;
 import co.edu.uniquindio.monederoVirtual.model.Rank;
@@ -21,25 +23,7 @@ public class CustomerServiceImp implements CustomerService {
         this.customerRepository = new CustomerRepository("src/main/resources/Persistence/customers.txt");
     }
 
-    /**
-     * Crea un nuevo cliente en el sistema
-     * @param customerDTO Datos del cliente a crear
-     * @return DTO del cliente creado
-     */
 
-    /**
-     * Obtiene un cliente por su ID
-     * @param id ID del cliente
-     * @return DTO del cliente encontrado o null si no existe
-     */
-    public CustomerDTO findCustomerById(String id) {
-        if (id == null) {
-            throw new IllegalArgumentException("El ID del cliente no puede ser nulo");
-        }
-
-        Optional<Customer> customerOptional = customerRepository.findById(id);
-        return customerOptional.map(customerMapper::customerToDto).orElse(null);
-    }
 
     /**
      * Obtiene todos los clientes del sistema
@@ -52,60 +36,7 @@ public class CustomerServiceImp implements CustomerService {
                 .collect(Collectors.toList());
     }
 
-    /**
-     * Actualiza la información de un cliente existente
-     * @param customerDTO Datos actualizados del cliente
-     * @return DTO del cliente actualizado o null si no existe
-     */
-    public CustomerDTO updateCustomer(CustomerDTO customerDTO) {
-        if (customerDTO == null || customerDTO.id() == null) {
-            throw new IllegalArgumentException("El cliente o su ID no pueden ser nulos");
-        }
-
-        // Verificar si el cliente existe
-        Optional<Customer> existingCustomerOpt = customerRepository.findById(customerDTO.id());
-        if (existingCustomerOpt.isEmpty()) {
-            return null; // Cliente no encontrado
-        }
-
-        Customer existingCustomer = existingCustomerOpt.get();
-        Customer updatedCustomer = customerMapper.dtoToCustomer(customerDTO);
-
-        // Conservar los valores que no deben cambiarse al actualizar
-        updatedCustomer.setTotalPoints(existingCustomer.getTotalPoints());
-        updatedCustomer.setRank(existingCustomer.getRank());
-        updatedCustomer.setWallets(existingCustomer.getWallets());
-        updatedCustomer.setAccounts(existingCustomer.getAccounts());
-        updatedCustomer.setTransactions(existingCustomer.getTransactions());
-
-        // Guardar cambios
-        Customer savedCustomer = customerRepository.save(updatedCustomer);
-        return customerMapper.customerToDto(savedCustomer);
-    }
-
-    /**
-     * Elimina un cliente del sistema
-     * @param id ID del cliente a eliminar
-     * @return true si se eliminó correctamente, false si no existía
-     */
-    public boolean deleteCustomer(String id) {
-        if (id == null) {
-            throw new IllegalArgumentException("El ID del cliente no puede ser nulo");
-        }
-
-        if (customerRepository.findById(id).isEmpty()) {
-            return false; // Cliente no encontrado
-        }
-
-        customerRepository.deleteById(id);
-        return true;
-    }
-
-    /**
-     * Busca clientes por nombre o email
-     * @param searchTerm Término de búsqueda
-     * @return Lista de DTOs de clientes que coinciden con la búsqueda
-     */
+    @Override
     public List<CustomerDTO> searchCustomers(String searchTerm) {
         if (searchTerm == null || searchTerm.trim().isEmpty()) {
             return getAllCustomers();
@@ -161,5 +92,55 @@ public class CustomerServiceImp implements CustomerService {
         // Guardar en el repositorio
         Customer savedCustomer = customerRepository.save(customer);
 
+    }
+
+    @Override
+    public void updateCustomer(UpdateCustomerDTO updateCustomerDTO) {
+        if (updateCustomerDTO == null || updateCustomerDTO.id() == null) {
+            throw new IllegalArgumentException("El cliente o su ID no pueden ser nulos");
+        }
+
+        // Verificar si el cliente existe
+        Optional<Customer> existingCustomerOpt = customerRepository.findById(updateCustomerDTO.id());
+        if (existingCustomerOpt.isEmpty()) {
+            return; // Cliente no encontrado
+        }
+
+        Customer existingCustomer = existingCustomerOpt.get();
+        Customer updatedCustomer = customerMapper.updateDtoToCustomer(updateCustomerDTO);
+
+        // Conservar los valores que no deben cambiarse al actualizar
+        updatedCustomer.setTotalPoints(existingCustomer.getTotalPoints());
+        updatedCustomer.setRank(existingCustomer.getRank());
+        updatedCustomer.setWallets(existingCustomer.getWallets());
+        updatedCustomer.setAccounts(existingCustomer.getAccounts());
+        updatedCustomer.setTransactions(existingCustomer.getTransactions());
+
+        // Guardar cambios
+         customerRepository.save(updatedCustomer);
+    }
+
+    @Override
+    public CustomerDTO findById(DeleteCustomerDTO dto) {
+        if (dto.id() == null) {
+            throw new IllegalArgumentException("El ID del cliente no puede ser nulo");
+        }
+
+        Optional<Customer> customerOptional = customerRepository.findById(dto.id());
+        return customerOptional.map(customerMapper::customerToDto).orElse(null);
+    }
+
+    @Override
+    public boolean deleteCustomer(DeleteCustomerDTO deleteCustomerDTO) {
+        if (deleteCustomerDTO.id() == null) {
+            throw new IllegalArgumentException("El ID del cliente no puede ser nulo");
+        }
+
+        if (customerRepository.findById(deleteCustomerDTO.id()).isEmpty()) {
+            return false; // Cliente no encontrado
+        }
+
+        customerRepository.deleteById(deleteCustomerDTO.id());
+        return true;
     }
 }
