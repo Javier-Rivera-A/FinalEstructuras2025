@@ -1,5 +1,6 @@
 package co.edu.uniquindio.monederoVirtual.controller;
 
+import co.edu.uniquindio.monederoVirtual.dto.CustomerDTO;
 import co.edu.uniquindio.monederoVirtual.dto.MessageDto;
 import co.edu.uniquindio.monederoVirtual.dto.customers.CreateCustomerDTO;
 import co.edu.uniquindio.monederoVirtual.dto.customers.DeleteCustomerDTO;
@@ -10,9 +11,7 @@ import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/customers")
@@ -25,22 +24,27 @@ public class CustomerController {
             customerService.createCustomer(createCustomerDTO);
             return ResponseEntity.ok(new MessageDto<>(false,"El cliente ha sido creado satisfactoriamente"));
     }
-
+    @GetMapping
+    public ResponseEntity<MessageDto<String>> listAllCustomers(@Valid @RequestBody CustomerDTO customerDTO){
+        customerService.listAllCustomers(customerDTO);
+        return ResponseEntity.ok(new MessageDto<>(false,"El cliente ha sido creado satisfactoriamente"));
+    }
+    @PutMapping
     public ResponseEntity<MessageDto<String>> updateCustomer(@Valid @RequestBody UpdateCustomerDTO updateCustomerDTO){
         customerService.updateCustomer(updateCustomerDTO);
         return ResponseEntity.ok(new MessageDto<>(false,"El cliente ha sido actualizado"));
     }
-
-    public ResponseEntity<MessageDto<String>> findById(@Valid @RequestBody DeleteCustomerDTO dto){
+    @GetMapping
+    public ResponseEntity<MessageDto<String>> getCustomer(@Valid @RequestBody DeleteCustomerDTO dto){
         customerService.findById(dto);
         return ResponseEntity.ok(new MessageDto<>(false,"Cliente encontrado"));
     }
-
+    @DeleteMapping
     public ResponseEntity<MessageDto<String>> deleteCustomer(@Valid @RequestBody DeleteCustomerDTO deleteCustomerDTO){
         customerService.deleteCustomer(deleteCustomerDTO);
         return ResponseEntity.ok(new MessageDto<>(false,"Cliente eliminado"));
     }
-
+    @GetMapping
     public ResponseEntity<MessageDto<String>> searchCustomers(@Valid @RequestBody UpdateCustomerDTO updateCustomerDTO){
         customerService.searchCustomers(String.valueOf(updateCustomerDTO));
         return ResponseEntity.ok(new MessageDto<>(false,"Cliente encontrado"));

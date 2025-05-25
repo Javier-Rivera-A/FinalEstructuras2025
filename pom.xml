@@ -36,15 +36,16 @@
     </dependencyManagement>
 
     <dependencies>
+        <!-- Logback compatible con Spring Boot 3.2.5 -->
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-core</artifactId>
-            <version>1.5.13</version>
+            <version>1.4.14</version>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>1.5.13</version>
+            <version>1.4.14</version>
         </dependency>
 
         <!-- Spring Boot -->

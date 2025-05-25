@@ -1,14 +1,16 @@
 package co.edu.uniquindio.monederoVirtual.services.implement;
 import co.edu.uniquindio.monederoVirtual.model.Customer;
+import co.edu.uniquindio.monederoVirtual.model.Rank;
 import co.edu.uniquindio.monederoVirtual.model.Transaction;
 import co.edu.uniquindio.monederoVirtual.model.TransactionType;
 import co.edu.uniquindio.monederoVirtual.services.PointService;
+import org.springframework.stereotype.Service;
 
 import java.util.Hashtable;
 import java.util.TreeSet;
 
 
-
+@Service
 public class PointsServiceImp implements PointService {
 
 
@@ -60,13 +62,18 @@ public class PointsServiceImp implements PointService {
 
         return pointsEarned;
     }
+    @Override
     public boolean redeemPoints(String customerId, int pointsToRedeem) {
         Integer currentPoints = customerPoints.get(customerId);
         if (currentPoints == null || currentPoints < pointsToRedeem) {
             return false; // No hay suficientes puntos
         }
-        customerPoints.put(customerId, currentPoints - pointsToRedeem);
-        // Actualizar el ranking si es necesario
+
+        int newPoints = currentPoints - pointsToRedeem;
+        customerPoints.put(customerId, newPoints);
+
+
+        System.out.println("Puntos canjeados exitosamente. Puntos restantes: " + newPoints);
         return true;
     }
     private int calculatePointsByTransactionType(TransactionType transactionType, double amount) {
@@ -91,7 +98,37 @@ public class PointsServiceImp implements PointService {
         }
     }
 
-   @Override
+    public int getCustomerPoints(String customerId) {
+        Integer points = customerPoints.get(customerId);
+        return (points != null) ? points : 0;
+    }
+    @Override
+    public Rank getCustomerRank(String customerId) {
+        int points = getCustomerPoints(customerId);
+        return determineRank(points);
+    }
+
+    private Rank determineRank(int points) {
+        if (points > 5000) {
+            return Rank.PLATINUM;
+        } else if (points > 1000) {
+            return Rank.GOLD;
+        } else if (points > 500) {
+            return Rank.SILVER;
+        } else {
+            return Rank.BRONZE;
+        }
+    }
+    @Override
+    public void recalculatePoints(String customerId, int pointsToSubtract) {
+        Integer currentPoints = customerPoints.get(customerId);
+        if (currentPoints != null) {
+            int newPoints = Math.max(0, currentPoints - pointsToSubtract);
+            customerPoints.put(customerId, newPoints);
+            System.out.println("Puntos recalculados para cliente " + customerId + ". Nuevos puntos: " + newPoints);
+        }
+    }
+
    public void updatePointsRanking(Customer client, int oldPoints, int newPoints) { CustomerPointsNode oldNode = new CustomerPointsNode(client.getId(), client.getName(), oldPoints);
        CustomerPointsNode newNode = new CustomerPointsNode(client.getId(), client.getName(), newPoints);
        pointsRanking.remove(oldNode);  // remove old

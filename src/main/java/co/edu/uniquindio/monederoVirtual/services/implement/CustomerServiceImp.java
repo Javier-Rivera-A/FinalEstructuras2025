@@ -143,4 +143,12 @@ public class CustomerServiceImp implements CustomerService {
         customerRepository.deleteById(deleteCustomerDTO.id());
         return true;
     }
+
+    @Override
+    public List<CustomerDTO> listAllCustomers(CustomerDTO customerDTO) {
+        List<Customer> customers = customerRepository.findAll();
+        return customers.stream()
+                .map(customerMapper::customerToDto)
+                .collect(Collectors.toList());
+    }
 }
