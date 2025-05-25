@@ -19,6 +19,7 @@ public class Transaction {
 
     @Schema(description = "Monto de dinero involucrado en la transacción", example = "250.0")
     private double amount;
+    private String accountId;
 
     @Schema(description = "Cuenta de origen involucrada en la transacción")
     private Account fromAccount;
@@ -42,6 +43,9 @@ public class Transaction {
     @Schema(description = "Tipo de transacción")
     private TransactionType type;
 
+
+    public Transaction(String s, String customerId, String deposit, double amount, String description, String walletId, Object o) {
+    }
 
 
 }

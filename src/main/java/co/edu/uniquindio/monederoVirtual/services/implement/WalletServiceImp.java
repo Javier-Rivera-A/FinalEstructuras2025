@@ -1,7 +1,19 @@
 package co.edu.uniquindio.monederoVirtual.services.implement;
 
-import org.springframework.stereotype.Service;
+import co.edu.uniquindio.monederoVirtual.model.Customer;
+import co.edu.uniquindio.monederoVirtual.model.Transaction;
+import co.edu.uniquindio.monederoVirtual.model.Wallet;
+import co.edu.uniquindio.monederoVirtual.services.CustomerService;
+import co.edu.uniquindio.monederoVirtual.services.PointService;
+import co.edu.uniquindio.monederoVirtual.services.TransactionService;
+import org.jetbrains.annotations.NotNull;
 
-@Service
+import java.util.*;
+
 public class WalletServiceImp {
+    private Map<String, Wallet> wallets;
+    private TransactionService transactionService;
+    private CustomerService customerService;
+    private PointService pointsService;
+    private Queue<Transaction> scheduledTransactions;
 }
