@@ -7,19 +7,18 @@ import co.edu.uniquindio.monederoVirtual.model.Customer;
 
 import co.edu.uniquindio.monederoVirtual.repository.AccountRepository;
 import co.edu.uniquindio.monederoVirtual.services.AccountService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 @Service
+@RequiredArgsConstructor
 public class AccountServiceImp implements AccountService {
     private final AccountRepository accountRepository;
     private final AccountMapper accountMapper = AccountMapper.INSTANCE;
 
-    public AccountServiceImp(AccountRepository repository) {
-        this.accountRepository = new AccountRepository("src/main/resources/Persistence/accounts.txt");
-    }
     @Override
     public AccountDTO createAccount(AccountDTO accountDTO){
         if(accountDTO == null){
@@ -29,7 +28,7 @@ public class AccountServiceImp implements AccountService {
             throw new IllegalArgumentException("El ID de la cuenta no puede estar vacío");
         }
 
-        if (accountRepository.findByID(accountDTO.accountID()).isPresent()) {
+        if (accountRepository.findById(accountDTO.accountID()).isPresent()) {
             throw new IllegalArgumentException("Ya existe la cuenta con ID: " + accountDTO.accountID());
         }
 
@@ -43,7 +42,7 @@ public class AccountServiceImp implements AccountService {
         if(id == null){
             throw new IllegalArgumentException("El ID de la cuenta no puede ser nulo");
         }
-        Optional<Account> accountOptional = accountRepository.findByID(id);
+        Optional<Account> accountOptional = accountRepository.findById(id);
         return accountOptional.map(accountMapper::accountToDto).orElse(null);
     }
     @Override
@@ -65,7 +64,7 @@ public class AccountServiceImp implements AccountService {
         if (accountDTO == null || accountDTO.accountID() == null) {
             throw new IllegalArgumentException("La cuenta o su ID no pueden ser nulos");
         }
-        Optional<Account> existingAccountOpt = accountRepository.findByID(accountDTO.accountID());
+        Optional<Account> existingAccountOpt = accountRepository.findById(accountDTO.accountID());
         if(existingAccountOpt.isEmpty()){
             return null;
         }
@@ -88,7 +87,7 @@ public class AccountServiceImp implements AccountService {
         if(id == null){
             throw new IllegalArgumentException("El ID de la cuenta no puede ser nulo");
         }
-        if(accountRepository.findByID(id).isEmpty()){
+        if(accountRepository.findById(id).isEmpty()){
             return false;
         }
         accountRepository.deleteById(id);

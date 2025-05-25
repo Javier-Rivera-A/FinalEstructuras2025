@@ -22,12 +22,12 @@ public class AccountController {
         accountService.createAccount(accountDTO);
         return ResponseEntity.ok(new MessageDto<>(false,"La cuenta se ha creado satisfactoriamente"));
     }
-    @GetMapping
+    @GetMapping("/findById")
     public ResponseEntity<MessageDto<String>> findById(@Valid @RequestBody DeleteAccountDTO accountDTO){
         accountService.findAccountById(String.valueOf(accountDTO));
         return ResponseEntity.ok(new MessageDto<>(false,"La cuenta se ha encontrado"));
     }
-    @GetMapping
+    @GetMapping("/findByOwner")
     public ResponseEntity<MessageDto<String>> findByOwner(@Valid @RequestBody FindAccountByOwnerDTO ownerDTO){
         accountService.findAccountByOwner(ownerDTO.owner());
         return ResponseEntity.ok(new MessageDto<>(false,"La cuenta se ha encontrado"));

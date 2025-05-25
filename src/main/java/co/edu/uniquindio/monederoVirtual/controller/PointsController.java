@@ -19,7 +19,7 @@ public class PointsController {
         pointService.createPointsTransaction(tdo.customer(),tdo.transaction());
         return ResponseEntity.ok(new MessageDto<>(false, "Puntos asignados por transaccion"));
     }
-    @PutMapping
+    @PutMapping("/redeem")
     public ResponseEntity<MessageDto<String>> redeemPoints(@Valid @RequestBody PointsTdo tdo){
         pointService.redeemPoints(tdo.customer().getId(),tdo.pointsToRedeem());
         return ResponseEntity.ok(new MessageDto<>(false, "Puntos redimidos"));
