@@ -29,6 +29,7 @@ public class CustomerServiceImp implements CustomerService {
      * Obtiene todos los clientes del sistema
      * @return Lista de DTOs de clientes
      */
+    @Override
     public List<CustomerDTO> getAllCustomers() {
         List<Customer> customers = customerRepository.findAll();
         return customers.stream()
@@ -58,6 +59,7 @@ public class CustomerServiceImp implements CustomerService {
      * @param rank Rango de los clientes a buscar
      * @return Lista de DTOs de clientes con el rango especificado
      */
+    @Override
     public List<CustomerDTO> getCustomersByRank(Rank rank) {
         if (rank == null) {
             throw new IllegalArgumentException("El rango no puede ser nulo");

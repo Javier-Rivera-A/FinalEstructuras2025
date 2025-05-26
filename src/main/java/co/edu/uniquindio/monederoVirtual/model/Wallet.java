@@ -1,13 +1,13 @@
 package co.edu.uniquindio.monederoVirtual.model;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
+import lombok.*;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 @Schema(description = "Representa una billetera digital dentro de una cuenta")
 public class Wallet {
 
