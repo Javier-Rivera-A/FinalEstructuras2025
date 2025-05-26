@@ -37,23 +37,23 @@ public class PointsServiceImp implements PointService {
             throw new IllegalArgumentException("Cliente y transacción no pueden ser nulos");
         }
 
-        // Calcular puntos según el tipo de transacción
+
         int pointsEarned = calculatePointsByTransactionType(
                 transaction.getType(),
                 transaction.getAmount()
         );
 
         if (pointsEarned > 0) {
-            // Obtener puntos actuales del cliente
+
             String clientId = customer.getId();
             Integer currentPoints = customerPoints.get(clientId);
             int currentPointsInt = (currentPoints != null) ? currentPoints : 0;
 
-            // Actualizar puntos totales
+
             int newTotalPoints = currentPointsInt + pointsEarned;
             customerPoints.put(clientId, newTotalPoints);
 
-            // Actualizar ranking en BST
+
             updatePointsRanking(customer, currentPointsInt, newTotalPoints);
 
             System.out.println("Cliente " + customer.getName() + " ganó " + pointsEarned +
@@ -66,7 +66,7 @@ public class PointsServiceImp implements PointService {
     public boolean redeemPoints(String customerId, int pointsToRedeem) {
         Integer currentPoints = customerPoints.get(customerId);
         if (currentPoints == null || currentPoints < pointsToRedeem) {
-            return false; // No hay suficientes puntos
+            return false;
         }
 
         int newPoints = currentPoints - pointsToRedeem;
@@ -135,9 +135,7 @@ public class PointsServiceImp implements PointService {
        pointsRanking.add(newNode);
    }
 
-    /**
-     * Clase interna para representar un nodo de cliente con puntos en el BST.
-     */
+
     private static class CustomerPointsNode implements Comparable<CustomerPointsNode> {
         private String customerId;
         private String customerName;
@@ -151,11 +149,11 @@ public class PointsServiceImp implements PointService {
 
         @Override
         public int compareTo(CustomerPointsNode other) {
-            // Ordenar por puntos (mayor a menor para ranking)
+
             return Integer.compare(other.points, this.points);
         }
 
-        // Getters
+
         public String getCustomerId() { return customerId; }
         public String getCustomerName() { return customerName; }
         public int getPoints() { return points; }
