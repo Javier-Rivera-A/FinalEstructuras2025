@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9918efed-8c61-4311-bfff-38bfd033d24f" name="Changes" comment="">
-<<<<<<< HEAD
+
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/monederoVirtual/model/Transaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/monederoVirtual/model/Transaction.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/monederoVirtual/services/TransactionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/monederoVirtual/services/TransactionService.java" afterDir="false" />
@@ -132,7 +132,7 @@
       <workItem from="1747264556833" duration="4701000" />
       <workItem from="1747937616159" duration="39000" />
       <workItem from="1748116765512" duration="13339000" />
-<<<<<<< HEAD
+
       <workItem from="1748195042930" duration="9999000" />
 =======
       <workItem from="1748195042930" duration="6416000" />
