@@ -11,7 +11,7 @@
       <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/monederoVirtual/services/TransactionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/monederoVirtual/services/TransactionService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/monederoVirtual/services/implement/TransactionServiceImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/monederoVirtual/services/implement/TransactionServiceImp.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/monederoVirtual/services/implement/WalletServiceImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/monederoVirtual/services/implement/WalletServiceImp.java" afterDir="false" />
-=======
+
       <change afterPath="$PROJECT_DIR$/src/test/java/co/edu/uniquindio/monederoVirtual/bussinesLogic/AccountServiceTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/monederoVirtual/controller/AccountController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/monederoVirtual/controller/AccountController.java" afterDir="false" />
@@ -27,7 +27,7 @@
       <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/monederoVirtual/services/implement/AccountServiceImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/monederoVirtual/services/implement/AccountServiceImp.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/monederoVirtual/services/implement/CustomerServiceImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/monederoVirtual/services/implement/CustomerServiceImp.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/monederoVirtual/services/implement/NotificationServiceImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/monederoVirtual/services/implement/NotificationServiceImp.java" afterDir="false" />
->>>>>>> ba1cf3ed265f678b87e5de61248d9eaa73b2ea5d
+
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
